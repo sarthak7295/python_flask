@@ -35,8 +35,9 @@ def get_mnist_model():
 def get_result(image_name,my_model):
     img = cv2.imread(image_name, cv2.IMREAD_GRAYSCALE)
     img = cv2.resize(img, (32, 32), interpolation=cv2.INTER_AREA)
+#     print(img.reshape(-1, 32, 32, -1))
     res = my_model.predict(img.reshape(1, 32, 32, 1))
-    # print(np.argmax(my_model.predict(img.reshape(1, 32, 32, 1))))
+    print(np.argmax(my_model.predict(img.reshape(1, 32, 32, 1))))
     return res
 
 

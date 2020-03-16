@@ -4,6 +4,7 @@ import base64
 import model as mod
 import os
 import numpy as np
+import keras
 
 
 app = Flask(__name__)
@@ -37,6 +38,8 @@ def predict():
     # get the raw data format of the image
     imgData = request.get_data()
     convertImage(imgData)
+    keras.backend.clear_session()
+    my_model = mod.get_mnist_model()
     res = mod.get_result('output.png', my_model)
     print(np.round(res*100,2)) # probabilites of all other digits
     return str(np.argmax(res))
@@ -44,4 +47,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0',port=5005)
